@@ -1,6 +1,6 @@
 # Datasets
 
-Datasets is a crowd-sourced effort to build a rich dataset of authors. While datasets exist for books, it's harder to find a rich dataset of book authors. It includes an author's:
+Datasets is a crowd-sourced effort to build a high-quality, factually correct dataset of authors. While datasets exist for books, it's harder to find a rich dataset of book authors. It includes an author's:
 - Name
 - Biography (short summary)
     - We make it clear if this was AI generated or assisted
