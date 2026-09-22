@@ -12,7 +12,13 @@ back, that data ends up become proprietary data for that platform. We feel it's 
 
 ## Contributing
 
-Thanks for your interest! See our [contributing guidelines](CONTRIBUTING.md)
+Thanks for your interest! See our [contributing guidelines](CONTRIBUTING.md).
+
+There are 2 main types of contributions:
+1. Adding new data to authors/authors.json
+2. Making a schema change
+
+We also highly welcome changes that make contributions easier for others.
 
 ## License
 
