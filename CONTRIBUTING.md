@@ -1,5 +1,9 @@
 # Contributing
 
+Prerequisites:
+- [Precommit](https://pre-commit.com/). Run `pre-commit install` to install the hooks
+
+
 Thank you so much for your interest in contributing!
 
 The [example file](example.json) shows you how to structure your new author object.
@@ -10,7 +14,7 @@ It's important for us to fact check all data in this dataset. We do our best to 
 
 ## New data
 
-Thanks for helping add to the dataset! 
+Thanks for helping add to the dataset!
 
 ### Guidelines
 
