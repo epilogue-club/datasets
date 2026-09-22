@@ -1,0 +1,42 @@
+[
+  {
+    "id": "j-r-r-tolkien",
+    "name": "J.R.R. Tolkien",
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/J._R._R._Tolkien%2C_ca._1925.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:J._R._R._Tolkien,_ca._1925.jpg",
+      "license": "Public domain"
+    },
+    "about": {
+      "text": "English philologist, writer and Oxford professor best known for The Hobbit and The Lord of the Rings.",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://en.wikipedia.org/wiki/J._R._R._Tolkien",
+      "origin": {
+        "type": "ai_assisted"
+      }
+    },
+    "social_links": {
+      "wikipedia": "https://en.wikipedia.org/wiki/J._R._R._Tolkien"
+    }
+  },
+  {
+    "id": "charles-dickens",
+    "name": "Charles Dickens",
+    "image": {
+      "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Portrait_of_Charles_Dickens_%284671094%29.jpg",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Portrait_of_Charles_Dickens_(4671094).jpg",
+      "license": "Public domain"
+    },
+    "about": {
+      "text": "English novelist and social critic best known for works including Oliver Twist, A Christmas Carol, and Great Expectations.",
+      "license": "CC BY-SA 4.0",
+      "source_url": "https://en.wikipedia.org/wiki/Charles_Dickens",
+      "origin": {
+        "type": "ai_assisted"
+      }
+    },
+    "social_links": {
+      "wikipedia": "https://en.wikipedia.org/wiki/Charles_Dickens"
+    }
+  }
+]
