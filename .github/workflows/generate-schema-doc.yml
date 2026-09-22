@@ -1,0 +1,48 @@
+name: Generate schema documentation
+
+on:
+  push:
+    branches:
+      - main
+      - alpha
+
+permissions:
+  contents: write
+
+jobs:
+  generate-schema-doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install schema documentation generator
+        run: python -m pip install json-schema-for-humans
+
+      - name: Generate schema.html
+        run: |
+          generate-schema-doc \
+            --config template_name=js \
+            --config expand_buttons=true \
+            schema/author.schema.json \
+            authors/schema.html
+
+      - name: Commit generated documentation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- schema.html; then
+            echo "schema.html is already up to date"
+            exit 0
+          fi
+
+          git add schema.html
+          git commit -m "docs: regenerate schema.html"
+          git push
