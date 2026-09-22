@@ -1,0 +1,20 @@
+{
+  "id": "ada-lovelace",
+  "name": "Ada Lovelace",
+  "image": {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Ada_Lovelace_portrait.jpg",
+    "source_url": "https://en.wikipedia.org/wiki/Ada_Lovelace",
+    "license": "CC BY-SA 4.0"
+  },
+  "about": {
+    "text": "Mathematician and writer recognised for her work on Charles Babbage's Analytical Engine.",
+    "license": "CC BY-SA 4.0",
+    "source_url": "https://en.wikipedia.org/wiki/Ada_Lovelace",
+    "origin": {
+      "type": "ai_assisted"
+    }
+  },
+  "social_links": {
+    "wikipedia": "https://en.wikipedia.org/wiki/Ada_Lovelace"
+  }
+}
