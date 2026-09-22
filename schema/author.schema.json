@@ -2,8 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Epilogue Author",
   "description": "Schema for a public author record.",
-  "type": "object",
-  "properties": {
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
     "id": {
       "type": "string",
       "minLength": 1,
@@ -115,6 +117,7 @@
       "additionalProperties": false
     }
   },
-  "required": ["id", "name", "image", "about"],
-  "additionalProperties": false
+    "required": ["id", "name", "image", "about"],
+    "additionalProperties": false
+  }
 }
