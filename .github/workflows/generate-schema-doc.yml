@@ -1,0 +1,64 @@
+name: Generate schema documentation
+
+on:
+  push:
+    branches:
+      - main
+      - alpha
+
+permissions:
+  contents: write
+
+env:
+  SCHEMA_DOC_PATH: authors/schema.html
+
+jobs:
+  generate-schema-doc:
+    if: github.actor != 'epilogue-datasets-token[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install schema documentation generator
+        run: python -m pip install json-schema-for-humans
+
+      - name: Generate schema documentation
+        run: |
+          generate-schema-doc \
+            --config template_name=js \
+            --config expand_buttons=true \
+            schema/author.schema.json \
+            "$SCHEMA_DOC_PATH"
+
+      - name: Commit and push schema documentation
+        run: |
+          git config user.name "epilogue-datasets-token[bot]"
+          git config user.email "epilogue-datasets-token[bot]@users.noreply.github.com"
+
+          git add "$SCHEMA_DOC_PATH"
+
+          if git diff --cached --quiet -- "$SCHEMA_DOC_PATH"; then
+            echo "Schema documentation is already up to date"
+            exit 0
+          fi
+
+          git commit -m "docs: regenerate schema.html"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
