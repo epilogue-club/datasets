@@ -10,6 +10,12 @@ Datasets is a crowd-sourced effort to build a high-quality, factually correct da
 This will be used by [Epilogue's database](https://epilogue.club/). When users of other book discovery platforms (e.g. Goodreads) contribute data
 back, that data ends up become proprietary data for that platform. We feel it's only fair that users contributions should be made open and public.
 
+## Versioning
+
+The data schemas are versioned using semantic versioning. This means you can reliably depend on the structure.
+
+The author dataset is currently unversioned.  New data will not change the schema version. This may change going forward.
+
 ## Contributing
 
 Thanks for your interest! See our [contributing guidelines](CONTRIBUTING.md).
