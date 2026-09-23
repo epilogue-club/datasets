@@ -14,6 +14,7 @@ env:
 
 jobs:
   generate-schema-doc:
+    if: github.actor != 'epilogue-datasets-token[bot]'
     runs-on: ubuntu-latest
 
     steps:
