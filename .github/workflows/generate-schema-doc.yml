@@ -6,7 +6,7 @@ on:
       - main
       - alpha
     paths:
-      - schema/authors.schema.json
+      - schema/author.schema.json
 
 permissions:
   contents: write
