@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  SCHEMA_DOC_PATH: authors/schema.html
+
 jobs:
   generate-schema-doc:
     runs-on: ubuntu-latest
@@ -36,23 +39,23 @@ jobs:
       - name: Install schema documentation generator
         run: python -m pip install json-schema-for-humans
 
-      - name: Generate schema.html
+      - name: Generate schema documentation
         run: |
           generate-schema-doc \
             --config template_name=js \
             --config expand_buttons=true \
             schema/author.schema.json \
-            schema.html
+            "$SCHEMA_DOC_PATH"
 
-      - name: Commit and push schema.html
+      - name: Commit and push schema documentation
         run: |
           git config user.name "epilogue-datasets-token[bot]"
           git config user.email "epilogue-datasets-token[bot]@users.noreply.github.com"
 
-          git add schema.html
+          git add "$SCHEMA_DOC_PATH"
 
-          if git diff --cached --quiet; then
-            echo "schema.html is already up to date"
+          if git diff --cached --quiet -- "$SCHEMA_DOC_PATH"; then
+            echo "Schema documentation is already up to date"
             exit 0
           fi
 
