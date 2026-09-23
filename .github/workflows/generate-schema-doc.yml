@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   generate-schema-doc:
@@ -22,7 +23,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install schema documentation generator
+      - name: Install generator
         run: python -m pip install json-schema-for-humans
 
       - name: Generate schema.html
@@ -31,18 +32,18 @@ jobs:
             --config template_name=js \
             --config expand_buttons=true \
             schema/author.schema.json \
-            authors/schema.html
+            schema.html
 
-      - name: Commit generated documentation
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          if git diff --quiet -- schema.html; then
-            echo "schema.html is already up to date"
-            exit 0
-          fi
-
-          git add schema.html
-          git commit -m "docs: regenerate schema.html"
-          git push
+      - name: Create schema documentation pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.SCHEMA_DOCS_PAT }}
+          base: ${{ github.ref_name }}
+          branch: automation/schema-docs-${{ github.ref_name }}
+          delete-branch: true
+          commit-message: "docs: regenerate schema.html"
+          title: "docs: regenerate schema.html"
+          body: |
+            Automatically generated schema documentation for `${{ github.ref_name }}`.
+          add-paths: |
+            schema.html
