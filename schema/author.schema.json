@@ -83,7 +83,7 @@
         "type": "object",
         "description": "Public social or reference links associated with the author.",
         "properties": {
-          "website": {
+          "author_website": {
             "type": "string",
             "format": "uri",
             "pattern": "^https?://",
