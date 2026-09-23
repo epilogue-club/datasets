@@ -20,6 +20,12 @@ There are 2 main types of contributions:
 
 We also highly welcome changes that make contributions easier for others.
 
+## Versioning
+
+The data schemas are versioned using semantic versioning. This means you can reliably depend on the structure.
+
+The author dataset is currently unversioned.  New data will not change the schema version. This may change going forward.
+
 ## License
 
 This is licensed under [ODbL](https://opendatacommons.org/licenses/odbl/1-0/).
