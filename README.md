@@ -1,6 +1,6 @@
 # Datasets
 
-[![Author schema](https://img.shields.io/badge/Author%20schema-DCD7C7?logo=readthedocs&logoColor=333333)](https://epilogue-club.github.io/datasets/authors/schema.html)
+[![View Author schema docs](https://img.shields.io/badge/Author%20schema-DCD7C7?logo=readthedocs&logoColor=333333)](https://epilogue-club.github.io/datasets/authors/schema.html)
 
 
 Datasets is a crowd-sourced effort to build a high-quality, factually correct dataset of authors. While datasets exist for books, it's harder to find a rich dataset of book authors. It includes an author's:
