@@ -16,3 +16,15 @@ repos:
         - --autofix
         - --indent
         - "4"
+-   repo: local
+    hooks:
+    -   id: check-unique-author-ids
+        name: Check unique author IDs
+        entry: >-
+            jq -e 'group_by(.id) | map(select(length > 1) | .[0].id) |
+            if length == 0 then true else
+            error("duplicate author IDs: \(join(", "))") end'
+            authors/authors.json
+        language: system
+        pass_filenames: false
+        files: ^authors/authors\.json$

@@ -2,6 +2,7 @@
 
 Prerequisites:
 - [Precommit](https://pre-commit.com/). Run `pre-commit install` to install the hooks
+- [jq](https://jqlang.org/download/)
 
 
 Thank you so much for your interest in contributing!
