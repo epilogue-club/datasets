@@ -4,6 +4,8 @@ on:
     branches:
       - main
       - alpha
+    paths:
+      - schema/author.schema.json
 
 permissions:
   contents: read # for checkout
