@@ -52,8 +52,18 @@ jobs:
 
       - name: Normalize generated documentation
         run: |
-            pre-commit run --files "$SCHEMA_DOC_PATH" || true
-            pre-commit run --files "$SCHEMA_DOC_PATH"
+            pre-commit run \
+            --files \
+            "$SCHEMA_DOC_PATH" \
+            authors/schema_doc.css \
+            authors/schema_doc.min.js \
+            || true
+
+            pre-commit run \
+            --files \
+            "$SCHEMA_DOC_PATH" \
+            authors/schema_doc.css \
+            authors/schema_doc.min.js
 
       - name: Commit and push schema documentation
         run: |
