@@ -35,7 +35,11 @@ jobs:
       - name: Semantic Release Dry Run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release --dry-run --no-ci
+        run: |
+          git checkout -B "${{ github.base_ref }}"
+          export GITHUB_REF="refs/heads/${{ github.base_ref }}"
+          echo "Semantic-release branch: $GITHUB_REF"
+          npx semantic-release --dry-run --no-ci
 
   release:
     name: Release
