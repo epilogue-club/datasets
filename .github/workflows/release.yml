@@ -1,5 +1,10 @@
 name: Release
+
 on:
+  pull_request:
+    paths:
+      - schema/author.schema.json
+
   push:
     branches:
       - main
@@ -8,16 +13,48 @@ on:
       - schema/author.schema.json
 
 permissions:
-  contents: read # for checkout
+  contents: read
 
 jobs:
+  dry-run:
+    name: Semantic Release Dry Run
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Semantic Release Dry Run
+        run: |
+          dry_run_repo="$RUNNER_TEMP/semantic-release-dry-run.git"
+          git init --bare "$dry_run_repo"
+          git push "$dry_run_repo" "HEAD:refs/heads/${{ github.base_ref }}" --tags
+          export GITHUB_REF="refs/heads/${{ github.base_ref }}"
+          echo "Semantic-release branch: $GITHUB_REF"
+          npx semantic-release \
+            --dry-run \
+            --no-ci \
+            --repository-url "$dry_run_repo" \
+            --branches "${{ github.base_ref }}" \
+            --plugins "@semantic-release/commit-analyzer"
+
   release:
     name: Release
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
+      contents: write
+      issues: write
+      pull-requests: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
