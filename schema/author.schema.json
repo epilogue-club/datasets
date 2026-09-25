@@ -1,123 +1,143 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Epilogue Author",
-  "description": "Schema for a public author record.",
-  "type": "array",
-  "items": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string",
-        "minLength": 1,
-        "description": "Stable unique identifier for the author."
-      },
-      "name": {
-        "type": "string",
-        "minLength": 1,
-        "description": "Public display name of the author."
-      },
-      "image": {
-        "type": "object",
-        "description": "Image and attribution metadata for the author.",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "description": "Schema for a public author record.",
+    "items": {
+        "additionalProperties": false,
         "properties": {
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the image used for the author."
-          },
-          "source_url": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL identifying the original image source."
-          },
-          "license": {
-            "type": "string",
-            "minLength": 1,
-            "description": "License under which the image may be used."
-          }
-        },
-        "required": ["url", "source_url", "license"],
-        "additionalProperties": false
-      },
-      "about": {
-        "type": "object",
-        "description": "Attributed biographical information about the author.",
-        "properties": {
-          "text": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 512,
-            "description": "Biographical text describing the author."
-          },
-          "license": {
-            "type": "string",
-            "minLength": 1,
-            "description": "License under which the biographical text may be used."
-          },
-          "source_url": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL identifying the source of the biographical text."
-          },
-          "origin": {
-            "type": "object",
-            "description": "Information about how the biographical text was produced.",
-            "properties": {
-              "type": {
-                "type": "string",
-                "enum": ["human", "ai", "ai_assisted"],
-                "description": "Origin of the biographical text: human-written, AI-generated, or AI-assisted."
-              }
+            "about": {
+                "additionalProperties": false,
+                "description": "Attributed biographical information about the author.",
+                "properties": {
+                    "license": {
+                        "description": "License under which the biographical text may be used.",
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "origin": {
+                        "additionalProperties": false,
+                        "description": "Information about how the biographical text was produced.",
+                        "properties": {
+                            "type": {
+                                "description": "Origin of the biographical text: human-written, AI-generated, or AI-assisted.",
+                                "enum": [
+                                    "human",
+                                    "ai",
+                                    "ai_assisted"
+                                ],
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type"
+                        ],
+                        "type": "object"
+                    },
+                    "source_url": {
+                        "description": "URL identifying the source of the biographical text.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "text": {
+                        "description": "Biographical text describing the author.",
+                        "maxLength": 512,
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "text",
+                    "license",
+                    "source_url",
+                    "origin"
+                ],
+                "type": "object"
             },
-            "required": ["type"],
-            "additionalProperties": false
-          }
+            "id": {
+                "description": "Stable unique identifier for the author.",
+                "minLength": 1,
+                "type": "string"
+            },
+            "image": {
+                "additionalProperties": false,
+                "description": "Image and attribution metadata for the author.",
+                "properties": {
+                    "license": {
+                        "description": "License under which the image may be used.",
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "source_url": {
+                        "description": "URL identifying the original image source.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "URL of the image used for the author.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url",
+                    "source_url",
+                    "license"
+                ],
+                "type": "object"
+            },
+            "name": {
+                "description": "Public display name of the author.",
+                "minLength": 1,
+                "type": "string"
+            },
+            "social_links": {
+                "additionalProperties": false,
+                "description": "Public social or reference links associated with the author.",
+                "properties": {
+                    "instagram": {
+                        "description": "URL of the author's Instagram profile.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "website": {
+                        "description": "URL of the author's website.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "wikipedia": {
+                        "description": "URL of the author's Wikipedia entry.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "x": {
+                        "description": "URL of the author's X profile.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    },
+                    "youtube": {
+                        "description": "URL of the author's YouTube channel.",
+                        "format": "uri",
+                        "pattern": "^https?://",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
         },
-        "required": ["text", "license", "source_url", "origin"],
-        "additionalProperties": false
-      },
-      "social_links": {
-        "type": "object",
-        "description": "Public social or reference links associated with the author.",
-        "properties": {
-          "website": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the author's website."
-          },
-          "x": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the author's X profile."
-          },
-          "instagram": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the author's Instagram profile."
-          },
-          "youtube": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the author's YouTube channel."
-          },
-          "wikipedia": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https?://",
-            "description": "URL of the author's Wikipedia entry."
-          }
-        },
-        "additionalProperties": false
-      }
+        "required": [
+            "id",
+            "name",
+            "image",
+            "about"
+        ],
+        "type": "object"
     },
-    "required": ["id", "name", "image", "about"],
-    "additionalProperties": false
-  }
+    "title": "Epilogue Author",
+    "type": "array"
 }
