@@ -39,8 +39,8 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install schema documentation generator
-        run: python -m pip install json-schema-for-humans
+      - name: Install tools
+        run: python -m pip install json-schema-for-humans pre-commit
 
       - name: Generate schema documentation
         run: |
