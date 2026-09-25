@@ -50,6 +50,11 @@ jobs:
             schema/author.schema.json \
             "$SCHEMA_DOC_PATH"
 
+      - name: Normalize generated documentation
+        run: |
+            pre-commit run --files "$SCHEMA_DOC_PATH" || true
+            pre-commit run --files "$SCHEMA_DOC_PATH"
+
       - name: Commit and push schema documentation
         run: |
           git config user.name "epilogue-datasets-token[bot]"
