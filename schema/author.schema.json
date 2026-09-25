@@ -6,117 +6,117 @@
   "items": {
     "type": "object",
     "properties": {
-    "id": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Stable unique identifier for the author."
-    },
-    "name": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Public display name of the author."
-    },
-    "image": {
-      "type": "object",
-      "description": "Image and attribution metadata for the author.",
-      "properties": {
-        "url": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the image used for the author."
-        },
-        "source_url": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL identifying the original image source."
-        },
-        "license": {
-          "type": "string",
-          "minLength": 1,
-          "description": "License under which the image may be used."
-        }
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Stable unique identifier for the author."
       },
-      "required": ["url", "source_url", "license"],
-      "additionalProperties": false
-    },
-    "about": {
-      "type": "object",
-      "description": "Attributed biographical information about the author.",
-      "properties": {
-        "text": {
-          "type": "string",
-          "minLength": 1,
-          "maxLength": 512,
-          "description": "Biographical text describing the author."
-        },
-        "license": {
-          "type": "string",
-          "minLength": 1,
-          "description": "License under which the biographical text may be used."
-        },
-        "source_url": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL identifying the source of the biographical text."
-        },
-        "origin": {
-          "type": "object",
-          "description": "Information about how the biographical text was produced.",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["human", "ai", "ai_assisted"],
-              "description": "Origin of the biographical text: human-written, AI-generated, or AI-assisted."
-            }
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Public display name of the author."
+      },
+      "image": {
+        "type": "object",
+        "description": "Image and attribution metadata for the author.",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the image used for the author."
           },
-          "required": ["type"],
-          "additionalProperties": false
-        }
+          "source_url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL identifying the original image source."
+          },
+          "license": {
+            "type": "string",
+            "minLength": 1,
+            "description": "License under which the image may be used."
+          }
+        },
+        "required": ["url", "source_url", "license"],
+        "additionalProperties": false
       },
-      "required": ["text", "license", "source_url", "origin"],
-      "additionalProperties": false
+      "about": {
+        "type": "object",
+        "description": "Attributed biographical information about the author.",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "description": "Biographical text describing the author."
+          },
+          "license": {
+            "type": "string",
+            "minLength": 1,
+            "description": "License under which the biographical text may be used."
+          },
+          "source_url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL identifying the source of the biographical text."
+          },
+          "origin": {
+            "type": "object",
+            "description": "Information about how the biographical text was produced.",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": ["human", "ai", "ai_assisted"],
+                "description": "Origin of the biographical text: human-written, AI-generated, or AI-assisted."
+              }
+            },
+            "required": ["type"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["text", "license", "source_url", "origin"],
+        "additionalProperties": false
+      },
+      "social_links": {
+        "type": "object",
+        "description": "Public social or reference links associated with the author.",
+        "properties": {
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the author's website."
+          },
+          "x": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the author's X profile."
+          },
+          "instagram": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the author's Instagram profile."
+          },
+          "youtube": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the author's YouTube channel."
+          },
+          "wikipedia": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://",
+            "description": "URL of the author's Wikipedia entry."
+          }
+        },
+        "additionalProperties": false
+      }
     },
-    "social_links": {
-      "type": "object",
-      "description": "Public social or reference links associated with the author.",
-      "properties": {
-        "website": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the author's website."
-        },
-        "x": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the author's X profile."
-        },
-        "instagram": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the author's Instagram profile."
-        },
-        "youtube": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the author's YouTube channel."
-        },
-        "wikipedia": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https?://",
-          "description": "URL of the author's Wikipedia entry."
-        }
-      },
-      "additionalProperties": false
-    }
-  },
     "required": ["id", "name", "image", "about"],
     "additionalProperties": false
   }
