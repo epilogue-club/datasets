@@ -36,7 +36,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git fetch origin "${{ github.base_ref }}"
           git checkout -B "${{ github.base_ref }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git merge --no-edit "origin/${{ github.base_ref }}"
           export GITHUB_REF="refs/heads/${{ github.base_ref }}"
           echo "Semantic-release branch: $GITHUB_REF"
           npx semantic-release --dry-run --no-ci
