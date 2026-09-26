@@ -32,3 +32,21 @@ If you're changing an existing field's value (e.g. an author's image), we will c
 If a schema change would be a breaking change (e.g. adding or removing a required field), please create an issue first to discuss this with us.
 
 When you make a schema change, please also update the [authors example JSON file](authors/example.json). You can use AI if you wish.
+
+## Validation (optional)
+
+We have added validation checks as pre-commit hooks. You can optionally run this manually.
+
+### Validating new data adheres to schema
+
+This is optional because it's already available via pre-commit, but here's how to run it manually.
+
+Prerequisites:
+- [check-jsonschema](https://github.com/python-jsonschema/check-jsonschema)
+
+Run:
+```bash
+check-jsonschema \
+  --schemafile schema/author.schema.json \
+  authors/authors.json
+```
