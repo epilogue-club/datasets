@@ -8,14 +8,14 @@ Prerequisites:
 Thank you so much for your interest in contributing!
 
 The [example file](authors/example.json) shows you how to structure your new author object.
-The [author docs](authors/schema.html) is auto-generated based on the schema file. It can be used to see which fields are required and what each field is for.
+The [author docs](https://epilogue-club.github.io/datasets/docs/authors/index.html) is auto-generated based on the schema file. It can be used to see which fields are required and what each field is for.
 The [schema json file](schema/author.schema.json) contains the canonical structure we use for validation.
 
 It's important for us to fact check all data in this dataset. We do our best to ensure it's as accurate as possible.
 
 ## New data
 
-Thanks for helping add to the dataset!
+Thanks for helping add to the dataset! Be sure to see the [example file](authors/example.json) and [author docs](https://epilogue-club.github.io/datasets/docs/authors/index.html).
 
 ### Guidelines
 

@@ -1,7 +1,7 @@
 # Datasets
 
 <p align="center">
-  <a href="https://epilogue-club.github.io/datasets/authors/schema.html">
+  <a href="https://epilogue-club.github.io/datasets/docs/authors/index.html">
     <img
       src="https://img.shields.io/badge/View%20docs-DCD7C7?style=for-the-badge&amp;logo=readthedocs&amp;logoColor=333333"
       alt="View author schema documentation"
