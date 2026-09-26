@@ -7,7 +7,7 @@ Prerequisites:
 
 Thank you so much for your interest in contributing!
 
-The [example file](example.json) shows you how to structure your new author object.
+The [example file](authors/example.json) shows you how to structure your new author object.
 The [author docs](authors/schema.html) is auto-generated based on the schema file. It can be used to see which fields are required and what each field is for.
 The [schema json file](schema/author.schema.json) contains the canonical structure we use for validation.
 
