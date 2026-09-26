@@ -54,7 +54,7 @@
                 "type": "object"
             },
             "id": {
-                "description": "Stable unique identifier for the author.",
+                "description": "Permanent, globally unique identifier for the author. Construct this by taking the author's name and converting it to lowercase, replacing spaces with hyphens, and ensuring it is unique. Try not to change this unless there is a good reason.",
                 "minLength": 1,
                 "type": "string"
             },
@@ -138,6 +138,6 @@
         ],
         "type": "object"
     },
-    "title": "Epilogue Author",
+    "title": "Epilogue Authors Dataset",
     "type": "array"
 }
