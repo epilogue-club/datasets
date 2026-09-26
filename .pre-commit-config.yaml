@@ -28,3 +28,12 @@ repos:
         language: system
         pass_filenames: false
         files: ^authors/authors\.json$
+- repo: https://github.com/python-jsonschema/check-jsonschema
+  rev: 0.38.2
+  hooks:
+    - id: check-jsonschema
+      name: Validate authors.json
+      files: ^authors/authors\.json$
+      args:
+        - --schemafile
+        - schema/author.schema.json
