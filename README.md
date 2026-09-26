@@ -35,6 +35,21 @@ The data schemas are versioned using semantic versioning. This means you can rel
 
 The author dataset is currently unversioned.  New data will not change the schema version. This may change going forward.
 
+| Schema change | Recommended version bump |
+|---|---:|
+| Fix descriptions, titles, examples, or formatting only | None |
+| Add an optional property | Minor |
+| Add an enum value | Minor |
+| Loosen a constraint, such as increasing `maxLength` | Minor |
+| Add an optional property | Minor |
+| Remove a property from `required` | Major |
+| Add a required property | Major |
+| Remove an existing property, especially with `additionalProperties: false` | Major |
+| Remove an enum value | Major |
+| Tighten types, patterns, formats, or length limits | Major |
+| Change the meaning of an existing field | Major |
+| Change the JSON Schema dialect or validation semantics | Major |
+
 ## License
 
 This is licensed under [ODbL](https://opendatacommons.org/licenses/odbl/1-0/).
