@@ -3,6 +3,25 @@
     "description": "Schema for a public author record.",
     "items": {
         "additionalProperties": false,
+        "examples": [
+            {
+                "about": {
+                    "license": "CC BY-SA 4.0",
+                    "origin": {
+                        "type": "human"
+                    },
+                    "source_url": "https://en.wikipedia.org/wiki/J._R._R._Tolkien",
+                    "text": "English writer and philologist."
+                },
+                "id": "j-r-r-tolkien",
+                "image": {
+                    "license": "Public domain",
+                    "source_url": "https://example.com/source",
+                    "url": "https://example.com/tolkien.jpg"
+                },
+                "name": "J.R.R. Tolkien"
+            }
+        ],
         "properties": {
             "about": {
                 "additionalProperties": false,
