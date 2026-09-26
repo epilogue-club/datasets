@@ -33,7 +33,9 @@ repos:
   hooks:
     - id: check-jsonschema
       name: Validate authors.json
-      files: ^authors/authors\.json$
+      files: ^(authors/authors\.json|schema/author\.schema\.json)$
+      pass_filenames: false
       args:
         - --schemafile
         - schema/author.schema.json
+        - authors/authors.json
