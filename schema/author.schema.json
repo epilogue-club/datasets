@@ -3,6 +3,25 @@
     "description": "Schema for a public author record.",
     "items": {
         "additionalProperties": false,
+        "examples": [
+            {
+                "about": {
+                    "license": "CC BY-SA 4.0",
+                    "origin": {
+                        "type": "human"
+                    },
+                    "source_url": "https://en.wikipedia.org/wiki/J._R._R._Tolkien",
+                    "text": "English writer and philologist."
+                },
+                "id": "j-r-r-tolkien",
+                "image": {
+                    "license": "Public domain",
+                    "source_url": "https://example.com/source",
+                    "url": "https://example.com/tolkien.jpg"
+                },
+                "name": "J.R.R. Tolkien"
+            }
+        ],
         "properties": {
             "about": {
                 "additionalProperties": false,
@@ -54,7 +73,7 @@
                 "type": "object"
             },
             "id": {
-                "description": "Stable unique identifier for the author.",
+                "description": "Permanent, globally unique identifier for the author. Construct this by taking the author's name and converting it to lowercase, replacing spaces with hyphens, and ensuring it is unique. Try not to change this unless there is a good reason.",
                 "minLength": 1,
                 "type": "string"
             },
@@ -138,6 +157,6 @@
         ],
         "type": "object"
     },
-    "title": "Epilogue Author",
+    "title": "Epilogue Authors Dataset",
     "type": "array"
 }
