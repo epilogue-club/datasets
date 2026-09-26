@@ -31,9 +31,17 @@ We also highly welcome changes that make contributions easier for others.
 
 ## Versioning
 
-The data schemas are versioned using semantic versioning. This means you can reliably depend on the structure.
+There are two different assets we version separately:
+1. Dataset
+2. Schema
+
+### Dataset
 
 The author dataset is currently unversioned.  New data will not change the schema version. This may change going forward.
+
+### Schema changes
+
+The data schemas are versioned using semantic versioning. This means you can reliably depend on the structure. Here is some guidance we try to follow:
 
 | Schema change | Recommended version bump |
 |---|---:|
