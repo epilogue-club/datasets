@@ -518,17 +518,32 @@
                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
             />
         </svg>
-    <a href="#items_image_license" onclick="anchorLink('items_image_license')">license</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+    <a href="#items_image_license" onclick="anchorLink('items_image_license')">license</a></div><span class="badge badge-dark value-type">Type: enum (of string)</span><br/>
 <span class="description"><p>License under which the image may be used.</p>
-</span><span class="pattern-value" id="items_image_license_pattern">Must match regular expression: <code>\S</code></span>
+
+<p>Unrestricted means that the copyright holder has explicitly permitted unrestricted use of the image, including commercial use and modification.</p>
+</span><div class="enum-value" id="items_image_license_enum">
+            <h4>Must be one of:</h4>
+            <ul class="list-group"><li class="list-group-item enum-item">"Public domain"</li><li class="list-group-item enum-item">"CC0 1.0"</li><li class="list-group-item enum-item">"CC BY 4.0"</li><li class="list-group-item enum-item">"CC BY-SA 4.0"</li><li class="list-group-item enum-item">"Unrestricted"</li><li class="list-group-item enum-item">"Permission granted"</li></ul>
+            </div>
 
 
 
-        <p><span class="badge badge-light restriction min-length-restriction" id="items_image_license_minLength">Must be at least <code>1</code> characters long</span></p>
+
 
         <br/>
-<div class="badge badge-secondary">Example:</div>
+<div class="badge badge-secondary">Examples:</div>
 <br/><div id="items_image_license_ex1" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"Public domain"</span>
+</pre></div>
+</div><div id="items_image_license_ex2" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"CC0 1.0"</span>
+</pre></div>
+</div><div id="items_image_license_ex3" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"CC BY 4.0"</span>
+</pre></div>
+</div><div id="items_image_license_ex4" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"CC BY-SA 4.0"</span>
+</pre></div>
+</div><div id="items_image_license_ex5" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"Unrestricted"</span>
+</pre></div>
+</div><div id="items_image_license_ex6" class="jumbotron examples"><div class="highlight"><pre><span></span><span class="s2">"Permission granted"</span>
 </pre></div>
 </div>
             </div>
@@ -951,6 +966,6 @@
     </div>
 
     <footer>
-        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a> on 2026-09-27 at 06:54:00 +0000</p>
+        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a> on 2026-09-27 at 07:06:34 +0000</p>
     </footer></body>
 </html>
