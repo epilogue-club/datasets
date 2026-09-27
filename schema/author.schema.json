@@ -121,12 +121,23 @@
                 ],
                 "properties": {
                     "license": {
-                        "description": "License under which the image may be used.",
-                        "examples": [
-                            "Public domain"
+                        "description": "License under which the image may be used.\n\nUnrestricted means that the copyright holder has explicitly permitted unrestricted use of the image, including commercial use and modification.",
+                        "enum": [
+                            "Public domain",
+                            "CC0 1.0",
+                            "CC BY 4.0",
+                            "CC BY-SA 4.0",
+                            "Unrestricted",
+                            "Permission granted"
                         ],
-                        "minLength": 1,
-                        "pattern": "\\S",
+                        "examples": [
+                            "Public domain",
+                            "CC0 1.0",
+                            "CC BY 4.0",
+                            "CC BY-SA 4.0",
+                            "Unrestricted",
+                            "Permission granted"
+                        ],
                         "type": "string"
                     },
                     "source_url": {
