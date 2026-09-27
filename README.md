@@ -26,15 +26,6 @@ back, that data ends up become proprietary data for that platform. We feel it's 
 
 Thanks for your interest! See our [contributing guidelines](CONTRIBUTING.md).
 
-To import authors from the [Suntrap public-domain author list](http://www.suntrap.ca/library/authors.html), enrich them from Wikipedia and Wikimedia Commons, and only keep Commons images whose licences are accepted by the schema, run:
-
-```bash
-python3 scripts/update_authors.py --dry-run
-python3 scripts/update_authors.py
-```
-
-The importer preserves existing records by default. Pass `--overwrite-existing` to refresh matching records. It deliberately skips unresolved Wikipedia pages, pages without biographies or representative Commons images, and images whose Wikimedia licence does not appear in `schema/author.schema.json`.
-
 There are 2 main types of contributions:
 1. Adding new data to authors/authors.json
 2. Making a schema change
