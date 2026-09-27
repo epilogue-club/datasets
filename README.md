@@ -9,12 +9,15 @@
   </a>
 </p>
 
+You can find the [author dataset here](https://github.com/epilogue-club/datasets/blob/main/authors/authors.json).
+
 Datasets is a crowd-sourced effort to build a high-quality, factually correct dataset of authors. While datasets exist for books, it's harder to find a rich dataset of book authors. It includes an author's:
 - Name
 - Biography (short summary)
     - We make it clear if this was AI generated or assisted
 - Headshot image (e.g. for a picture picture)
 - Social links
+
 
 This will be used by [Epilogue's database](https://epilogue.club/). When users of other book discovery platforms (e.g. Goodreads) contribute data
 back, that data ends up become proprietary data for that platform. We feel it's only fair that users contributions should be made open and public.
