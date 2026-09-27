@@ -26,15 +26,33 @@
             "about": {
                 "additionalProperties": false,
                 "description": "Attributed biographical information about the author.",
+                "examples": [
+                    {
+                        "license": "CC BY-SA 4.0",
+                        "origin": {
+                            "type": "human"
+                        },
+                        "source_url": "https://en.wikipedia.org/wiki/J._R._R._Tolkien",
+                        "text": "English writer and philologist."
+                    }
+                ],
                 "properties": {
                     "license": {
                         "description": "License under which the biographical text may be used.",
+                        "examples": [
+                            "CC BY-SA 4.0"
+                        ],
                         "minLength": 1,
                         "type": "string"
                     },
                     "origin": {
                         "additionalProperties": false,
                         "description": "Information about how the biographical text was produced.",
+                        "examples": [
+                            {
+                                "type": "human"
+                            }
+                        ],
                         "properties": {
                             "type": {
                                 "description": "Origin of the biographical text: human-written, AI-generated, or AI-assisted.",
@@ -42,6 +60,9 @@
                                     "human",
                                     "ai",
                                     "ai_assisted"
+                                ],
+                                "examples": [
+                                    "human"
                                 ],
                                 "type": "string"
                             }
@@ -53,12 +74,18 @@
                     },
                     "source_url": {
                         "description": "URL identifying the source of the biographical text.",
+                        "examples": [
+                            "https://en.wikipedia.org/wiki/J._R._R._Tolkien"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
                     },
                     "text": {
                         "description": "Biographical text describing the author.",
+                        "examples": [
+                            "English writer and philologist."
+                        ],
                         "maxLength": 512,
                         "minLength": 1,
                         "type": "string"
@@ -84,14 +111,26 @@
             "image": {
                 "additionalProperties": false,
                 "description": "Image and attribution metadata for the author.",
+                "examples": [
+                    {
+                        "license": "Public domain",
+                        "source_url": "https://commons.wikimedia.org/wiki/File:J._R._R._Tolkien,_1940s.jpg"
+                    }
+                ],
                 "properties": {
                     "license": {
                         "description": "License under which the image may be used.",
+                        "examples": [
+                            "Public domain"
+                        ],
                         "minLength": 1,
                         "type": "string"
                     },
                     "source_url": {
                         "description": "URL identifying the original image source.",
+                        "examples": [
+                            "https://commons.wikimedia.org/wiki/File:J._R._R._Tolkien,_1940s.jpg"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
@@ -105,39 +144,66 @@
             },
             "name": {
                 "description": "Public display name of the author.",
+                "examples": [
+                    "J.R.R. Tolkien"
+                ],
                 "minLength": 1,
                 "type": "string"
             },
             "social_links": {
                 "additionalProperties": false,
                 "description": "Public social or reference links associated with the author.",
+                "examples": [
+                    {
+                        "instagram": "https://www.instagram.com/example_author",
+                        "website": "https://www.example.com",
+                        "wikipedia": "https://en.wikipedia.org/wiki/J._R._R._Tolkien",
+                        "x": "https://x.com/example_author",
+                        "youtube": "https://www.youtube.com/@example_author"
+                    }
+                ],
                 "properties": {
                     "instagram": {
                         "description": "URL of the author's Instagram profile.",
+                        "examples": [
+                            "https://www.instagram.com/example_author"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
                     },
                     "website": {
                         "description": "URL of the author's website.",
+                        "examples": [
+                            "https://www.example.com"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
                     },
                     "wikipedia": {
                         "description": "URL of the author's Wikipedia entry.",
+                        "examples": [
+                            "https://en.wikipedia.org/wiki/J._R._R._Tolkien"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
                     },
                     "x": {
                         "description": "URL of the author's X profile.",
+                        "examples": [
+                            "https://x.com/example_author"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
                     },
                     "youtube": {
                         "description": "URL of the author's YouTube channel.",
+                        "examples": [
+                            "https://www.youtube.com/@example_author"
+                        ],
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
