@@ -95,16 +95,9 @@
                         "format": "uri",
                         "pattern": "^https?://",
                         "type": "string"
-                    },
-                    "url": {
-                        "description": "URL of the image used for the author.",
-                        "format": "uri",
-                        "pattern": "^https?://",
-                        "type": "string"
                     }
                 },
                 "required": [
-                    "url",
                     "source_url",
                     "license"
                 ],
