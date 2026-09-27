@@ -616,12 +616,12 @@
             "source_url": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Blanchet_(pr%C3%A9dicateur)",
             "text": "Fran\u00e7ois Blanchet (n\u00e9 le 26 janvier 1707 \u00e0 Angerville - mort le 29 janvier 1784 \u00e0 Saint-Germain-en-Laye) est un abb\u00e9 fran\u00e7ais du XVIIIe si\u00e8cle, pr\u00e9dicateur et \u00e9crivain."
         },
-        "id": "francois-blanchet-predicateur",
+        "id": "francois-blanchet",
         "image": {
             "license": "Public domain",
             "source_url": "https://commons.wikimedia.org/wiki/File:Blanchet,_Fran%C3%A7ois_(abb%C3%A9).jpg"
         },
-        "name": "Fran\u00e7ois Blanchet (pr\u00e9dicateur)",
+        "name": "Fran\u00e7ois Blanchet",
         "social_links": {
             "wikipedia": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Blanchet_(pr%C3%A9dicateur)"
         }
@@ -2630,12 +2630,12 @@
             "source_url": "https://en.wikipedia.org/wiki/John_Hughes_(poet)",
             "text": "John Hughes (29 January 1677 \u2013 17 February 1720) was an English poet, essayist and translator. Various of his works remained in print for a century after his death, but if he is remembered at all today it is for the use others made of his work. Texts of his were set by the foremost composers of the day and his translation of the Letters of Abelard and Heloise was a major source for Alexander Pope's Eloisa to Abelard."
         },
-        "id": "john-hughes-poet",
+        "id": "john-hughes",
         "image": {
             "license": "CC BY-SA 4.0",
             "source_url": "https://commons.wikimedia.org/wiki/File:J._Hughes_(poet).jpg"
         },
-        "name": "John Hughes (poet)",
+        "name": "John Hughes",
         "social_links": {
             "wikipedia": "https://en.wikipedia.org/wiki/John_Hughes_(poet)"
         }
@@ -2763,12 +2763,12 @@
             "source_url": "https://en.wikipedia.org/wiki/Owen_Johnson_(writer)",
             "text": "Owen McMahon Johnson (August 27, 1878 \u2013 January 27, 1952) was an American writer best remembered for his stories and novels cataloguing the educational and personal growth of the fictional character Dink Stover. The \"Lawrenceville Stories\" (The Prodigious Hickey, The Tennessee Shad, The Varmint, Skippy Bedelle, The Hummingbird), set in the well-known prep school, invite comparison with Kipling's Stalky & Co."
         },
-        "id": "owen-johnson-writer",
+        "id": "owen-johnson",
         "image": {
             "license": "Public domain",
             "source_url": "https://commons.wikimedia.org/wiki/File:Portrait_of_Owen_Johnson.jpg"
         },
-        "name": "Owen Johnson (writer)",
+        "name": "Owen Johnson",
         "social_links": {
             "wikipedia": "https://en.wikipedia.org/wiki/Owen_Johnson_(writer)"
         }
@@ -3276,12 +3276,12 @@
             "source_url": "https://en.wikipedia.org/wiki/Hector_Macpherson_(astronomer)",
             "text": "Hector Copland Macpherson, (1 April 1888 \u2013 19 May 1956) was a Scottish astronomer and minister. His 1940 work Biographical Dictionary of Astronomy was later incorporated into the Biographical Encyclopedia of Astronomers, which was first published in 2007."
         },
-        "id": "hector-macpherson-astronomer",
+        "id": "hector-macpherson",
         "image": {
             "license": "Public domain",
             "source_url": "https://commons.wikimedia.org/wiki/File:Hector_2.jpg"
         },
-        "name": "Hector Macpherson (astronomer)",
+        "name": "Hector Macpherson",
         "social_links": {
             "wikipedia": "https://en.wikipedia.org/wiki/Hector_Macpherson_(astronomer)"
         }
@@ -3485,12 +3485,12 @@
             "source_url": "https://en.wikipedia.org/wiki/George_Moore_(novelist)",
             "text": "George Augustus Moore (24 February 1852 \u2013 21 January 1933) was an Irish novelist, short-story writer, poet, art critic, memoirist and dramatist. Moore came from a landed family of Catholics who lived at Moore Hall in Carra, County Mayo. He originally wanted to be a painter, and studied art in Paris during the 1870s. There, he befriended many of the leading French artists and writers of the day."
         },
-        "id": "george-moore-novelist",
+        "id": "george-moore",
         "image": {
             "license": "Public domain",
             "source_url": "https://commons.wikimedia.org/wiki/File:George_Moore_1.jpg"
         },
-        "name": "George Moore (novelist)",
+        "name": "George Moore",
         "social_links": {
             "wikipedia": "https://en.wikipedia.org/wiki/George_Moore_(novelist)"
         }
@@ -4948,12 +4948,12 @@
             "source_url": "https://en.wikipedia.org/wiki/Winnifred_Eaton_(writer)",
             "text": "Winnifred Eaton (August 21, 1875 \u2013 April 8, 1954) was a Canadian author and screenwriter of Chinese-British ancestry. Publishing prolifically under a number of names, most predominantly, the pseudonym Onoto Watanna, she was one of the first North American writers of Asian descent to publish fiction in English."
         },
-        "id": "winnifred-eaton-writer",
+        "id": "winnifred-eaton",
         "image": {
             "license": "Public domain",
             "source_url": "https://commons.wikimedia.org/wiki/File:Picture_of_Onoto_Watanna.jpg"
         },
-        "name": "Winnifred Eaton (writer)",
+        "name": "Winnifred Eaton",
         "social_links": {
             "wikipedia": "https://en.wikipedia.org/wiki/Winnifred_Eaton_(writer)"
         }

@@ -310,6 +310,11 @@ def slugify(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", ascii_name.casefold()).strip("-") or "author"
 
 
+def display_name(wikipedia_title: str) -> str:
+    """Remove Wikipedia's trailing parenthetical disambiguation suffix."""
+    return re.sub(r"\s+\([^()]+\)$", "", wikipedia_title).strip()
+
+
 def normalized_page_url(url: str) -> str:
     parsed = urlparse(url)
     return f"{(parsed.hostname or '').casefold()}{unquote(parsed.path).rstrip('/')}"
@@ -358,6 +363,7 @@ def build_records(
             stats[f"skipped_license:{image.license}"] += 1
             continue
 
+        name = display_name(page.title)
         records.append(
             {
                 "about": {
@@ -366,12 +372,12 @@ def build_records(
                     "source_url": page.canonical_url,
                     "text": concise_bio(page.extract),
                 },
-                "id": slugify(page.title),
+                "id": slugify(name),
                 "image": {
                     "license": image.license,
                     "source_url": image.source_url,
                 },
-                "name": page.title,
+                "name": name,
                 "social_links": {"wikipedia": page.canonical_url},
             }
         )
