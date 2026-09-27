@@ -7,6 +7,13 @@ from urllib.request import Request, urlopen
 
 AUTHORS_PATH = Path(__file__).resolve().parents[2] / "authors" / "authors.json"
 WIKIMEDIA_API_URL = "https://commons.wikimedia.org/w/api.php"
+WIKIMEDIA_LICENSE_ALIASES = {
+    "CC0": "CC0 1.0",
+}
+
+
+def normalize_wikimedia_license(license_name: str) -> str:
+    return WIKIMEDIA_LICENSE_ALIASES.get(license_name, license_name)
 
 
 def wikimedia_file_title(source_url: str) -> str | None:
@@ -55,6 +62,13 @@ def fetch_wikimedia_license(file_title: str) -> str:
 
 
 class TestWikimediaLicenses(unittest.TestCase):
+    def test_normalizes_wikimedia_license_names(self) -> None:
+        self.assertEqual(normalize_wikimedia_license("CC0"), "CC0 1.0")
+        self.assertEqual(
+            normalize_wikimedia_license("CC BY-SA 4.0"),
+            "CC BY-SA 4.0",
+        )
+
     def test_image_licenses_match_wikimedia(self) -> None:
         with AUTHORS_PATH.open(encoding="utf-8") as authors_file:
             authors = json.load(authors_file)
@@ -73,7 +87,9 @@ class TestWikimediaLicenses(unittest.TestCase):
 
         for author, file_title in wikimedia_authors:
             with self.subTest(author=author["id"], file=file_title):
-                api_license = fetch_wikimedia_license(file_title)
+                api_license = normalize_wikimedia_license(
+                    fetch_wikimedia_license(file_title)
+                )
                 self.assertEqual(
                     author["image"]["license"],
                     api_license,
