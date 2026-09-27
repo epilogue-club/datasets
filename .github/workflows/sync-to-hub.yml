@@ -11,6 +11,6 @@ jobs:
       - uses: huggingface/hub-sync@v0.3.0
         with:
           github_repo_id: ${{ github.repository }}
-          huggingface_repo_id: epilogue-club/datasets
+          huggingface_repo_id: epilogue-club/author-dataset
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: dataset
