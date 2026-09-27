@@ -14,7 +14,7 @@
 </a>
 </p>
 
-You can find the [author dataset here](https://github.com/epilogue-club/datasets/blob/main/authors/authors.json).
+You can find the [author dataset here](authors/authors.json).
 
 Datasets is a crowd-sourced effort to build a high-quality, factually correct dataset of authors. While datasets exist for books, it's harder to find a rich dataset of book authors. It includes an author's:
 - Name
