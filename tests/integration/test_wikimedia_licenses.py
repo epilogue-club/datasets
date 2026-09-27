@@ -1,7 +1,7 @@
 import json
 import unittest
 from pathlib import Path
-from urllib.parse import unquote, urlencode, urlparse
+from urllib.parse import parse_qs, unquote, urlencode, urlparse
 from urllib.request import Request, urlopen
 
 
@@ -22,12 +22,17 @@ def wikimedia_file_title(source_url: str) -> str | None:
     if parsed_url.hostname != "commons.wikimedia.org":
         return None
 
-    prefix = "/wiki/"
-    if not parsed_url.path.startswith(prefix):
-        return None
+    if parsed_url.path.startswith("/wiki/"):
+        title = unquote(parsed_url.path.removeprefix("/wiki/"))
+    elif parsed_url.path == "/w/index.php":
+        title = parse_qs(parsed_url.query).get("title", [None])[0]
+    else:
+        raise ValueError(f"Unrecognized Wikimedia Commons URL: {source_url}")
 
-    title = unquote(parsed_url.path.removeprefix(prefix)).replace("_", " ")
-    return title if title.startswith("File:") else None
+    if title is None or not title.startswith("File:"):
+        raise ValueError(f"Commons URL does not identify a file: {source_url}")
+
+    return title.replace("_", " ")
 
 
 def fetch_wikimedia_license(file_title: str) -> str:
@@ -62,6 +67,27 @@ def fetch_wikimedia_license(file_title: str) -> str:
 
 
 class TestWikimediaLicenses(unittest.TestCase):
+    def test_extracts_file_title_from_commons_urls(self) -> None:
+        self.assertEqual(
+            wikimedia_file_title(
+                "https://commons.wikimedia.org/wiki/File:Example_image.jpg"
+            ),
+            "File:Example image.jpg",
+        )
+        self.assertEqual(
+            wikimedia_file_title(
+                "https://commons.wikimedia.org/w/index.php"
+                "?title=File:Example_image.jpg"
+            ),
+            "File:Example image.jpg",
+        )
+
+    def test_rejects_unrecognized_commons_urls(self) -> None:
+        with self.assertRaisesRegex(
+            ValueError, "Unrecognized Wikimedia Commons URL"
+        ):
+            wikimedia_file_title("https://commons.wikimedia.org/not-a-file")
+
     def test_normalizes_wikimedia_license_names(self) -> None:
         self.assertEqual(normalize_wikimedia_license("CC0"), "CC0 1.0")
         self.assertEqual(
