@@ -8,5 +8,5 @@
 
 ## Checklist
 
-[ ] CI passes
-[ ] No duplicate entries (if adding new data)
+- [ ] CI passes
+- [ ] No duplicate entries (if adding new data)
