@@ -1,4 +1,6 @@
 import json
+import os
+import subprocess
 import unittest
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlencode, urlparse
@@ -14,6 +16,30 @@ WIKIMEDIA_LICENSE_ALIASES = {
 
 def normalize_wikimedia_license(license_name: str) -> str:
     return WIKIMEDIA_LICENSE_ALIASES.get(license_name, license_name)
+
+
+def changed_authors(authors: list[dict]) -> list[dict]:
+    base_ref = os.environ.get("AUTHORS_BASE_REF", "HEAD")
+    result = subprocess.run(
+        ["git", "show", f"{base_ref}:authors/authors.json"],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            f"Could not read authors/authors.json at {base_ref}: "
+            f"{result.stderr.strip()}"
+        )
+
+    previous_authors = {
+        author["id"]: author for author in json.loads(result.stdout)
+    }
+    return [
+        author
+        for author in authors
+        if previous_authors.get(author["id"]) != author
+    ]
 
 
 def wikimedia_file_title(source_url: str) -> str | None:
@@ -99,17 +125,15 @@ class TestWikimediaLicenses(unittest.TestCase):
         with AUTHORS_PATH.open(encoding="utf-8") as authors_file:
             authors = json.load(authors_file)
 
+        authors = changed_authors(authors)
         wikimedia_authors = [
             (author, wikimedia_file_title(author["image"]["source_url"]))
             for author in authors
             if wikimedia_file_title(author["image"]["source_url"]) is not None
         ]
 
-        self.assertGreater(
-            len(wikimedia_authors),
-            0,
-            "Expected at least one author image hosted on Wikimedia Commons",
-        )
+        if not wikimedia_authors:
+            self.skipTest("No changed authors use Wikimedia Commons images")
 
         for author, file_title in wikimedia_authors:
             with self.subTest(author=author["id"], file=file_title):

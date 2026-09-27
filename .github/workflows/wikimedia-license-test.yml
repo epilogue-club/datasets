@@ -28,11 +28,22 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      - name: Determine comparison commit
+        shell: bash
+        run: |
+          base_ref="${{ github.event.pull_request.base.sha || github.event.before }}"
+          if [[ -z "$base_ref" || "$base_ref" =~ ^0+$ ]]; then
+            base_ref="HEAD^"
+          fi
+          echo "AUTHORS_BASE_REF=$base_ref" >> "$GITHUB_ENV"
 
       - name: Compare image licenses with Wikimedia
         run: |
