@@ -1,9 +1,11 @@
 import json
 import os
 import subprocess
+import time
 import unittest
 from pathlib import Path
-from urllib.parse import parse_qs, unquote, urlencode, urlparse
+from urllib.error import HTTPError
+from urllib.parse import parse_qs, unquote, urlencode, urlsplit
 from urllib.request import Request, urlopen
 
 
@@ -12,6 +14,8 @@ WIKIMEDIA_API_URL = "https://commons.wikimedia.org/w/api.php"
 WIKIMEDIA_LICENSE_ALIASES = {
     "CC0": "CC0 1.0",
 }
+WIKIMEDIA_BATCH_SIZE = 50
+WIKIMEDIA_REQUEST_RETRIES = 4
 
 
 def normalize_wikimedia_license(license_name: str) -> str:
@@ -43,7 +47,9 @@ def changed_authors(authors: list[dict]) -> list[dict]:
 
 
 def wikimedia_file_title(source_url: str) -> str | None:
-    parsed_url = urlparse(source_url)
+    # urlparse separates text after a semicolon into ``params``, which corrupts
+    # valid Commons filenames. urlsplit keeps the complete filename in ``path``.
+    parsed_url = urlsplit(source_url)
 
     if parsed_url.hostname != "commons.wikimedia.org":
         return None
@@ -61,35 +67,74 @@ def wikimedia_file_title(source_url: str) -> str | None:
     return title.replace("_", " ")
 
 
-def fetch_wikimedia_license(file_title: str) -> str:
-    query = urlencode(
-        {
-            "action": "query",
-            "format": "json",
-            "formatversion": "2",
-            "prop": "imageinfo",
-            "iiprop": "extmetadata",
-            "titles": file_title,
+def fetch_wikimedia_licenses(file_titles: list[str]) -> dict[str, str]:
+    licenses: dict[str, str] = {}
+    unique_titles = list(dict.fromkeys(file_titles))
+
+    for start in range(0, len(unique_titles), WIKIMEDIA_BATCH_SIZE):
+        title_batch = unique_titles[start : start + WIKIMEDIA_BATCH_SIZE]
+        query = urlencode(
+            {
+                "action": "query",
+                "format": "json",
+                "formatversion": "2",
+                "redirects": "1",
+                "maxlag": "5",
+                "prop": "imageinfo",
+                "iiprop": "extmetadata",
+                "titles": "|".join(title_batch),
+            }
+        )
+        request = Request(
+            f"{WIKIMEDIA_API_URL}?{query}",
+            headers={
+                "User-Agent": (
+                    "epilogue-datasets Wikimedia licence integration test "
+                    "(https://github.com/epilogue-club/datasets)"
+                )
+            },
+        )
+
+        for attempt in range(WIKIMEDIA_REQUEST_RETRIES):
+            try:
+                with urlopen(request, timeout=20) as response:
+                    result = json.load(response)
+                break
+            except HTTPError as error:
+                if error.code != 429 and error.code < 500:
+                    raise
+                retry_after = error.headers.get("Retry-After", "")
+                error.close()
+                if attempt == WIKIMEDIA_REQUEST_RETRIES - 1:
+                    raise
+                delay = float(retry_after) if retry_after.isdigit() else 2**attempt
+                time.sleep(min(delay, 10))
+
+        query_result = result["query"]
+        aliases = {
+            item["from"]: item["to"]
+            for key in ("normalized", "redirects")
+            for item in query_result.get(key, [])
         }
-    )
-    request = Request(
-        f"{WIKIMEDIA_API_URL}?{query}",
-        headers={
-            "User-Agent": (
-                "epilogue-datasets Wikimedia licence integration test "
-                "(https://github.com/epilogue-club/datasets)"
-            )
-        },
-    )
+        pages = {page["title"]: page for page in query_result["pages"]}
 
-    with urlopen(request, timeout=20) as response:
-        result = json.load(response)
+        for requested_title in title_batch:
+            resolved_title = requested_title.replace("_", " ")
+            seen: set[str] = set()
+            while resolved_title in aliases and resolved_title not in seen:
+                seen.add(resolved_title)
+                resolved_title = aliases[resolved_title]
 
-    page = result["query"]["pages"][0]
-    if page.get("missing"):
-        raise AssertionError(f"Wikimedia file does not exist: {file_title}")
+            page = pages.get(resolved_title)
+            if page is None or page.get("missing"):
+                raise AssertionError(
+                    f"Wikimedia file does not exist: {requested_title}"
+                )
+            licenses[requested_title] = page["imageinfo"][0]["extmetadata"][
+                "LicenseShortName"
+            ]["value"]
 
-    return page["imageinfo"][0]["extmetadata"]["LicenseShortName"]["value"]
+    return licenses
 
 
 class TestWikimediaLicenses(unittest.TestCase):
@@ -106,6 +151,13 @@ class TestWikimediaLicenses(unittest.TestCase):
                 "?title=File:Example_image.jpg"
             ),
             "File:Example image.jpg",
+        )
+        self.assertEqual(
+            wikimedia_file_title(
+                "https://commons.wikimedia.org/wiki/"
+                "File:Example;_with_parameters.jpg"
+            ),
+            "File:Example; with parameters.jpg",
         )
 
     def test_rejects_unrecognized_commons_urls(self) -> None:
@@ -135,10 +187,14 @@ class TestWikimediaLicenses(unittest.TestCase):
         if not wikimedia_authors:
             self.skipTest("No changed authors use Wikimedia Commons images")
 
+        licenses = fetch_wikimedia_licenses(
+            [file_title for _, file_title in wikimedia_authors]
+        )
+
         for author, file_title in wikimedia_authors:
             with self.subTest(author=author["id"], file=file_title):
                 api_license = normalize_wikimedia_license(
-                    fetch_wikimedia_license(file_title)
+                    licenses[file_title]
                 )
                 self.assertEqual(
                     author["image"]["license"],
