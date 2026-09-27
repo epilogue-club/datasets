@@ -43,6 +43,7 @@
                             "CC BY-SA 4.0"
                         ],
                         "minLength": 1,
+                        "pattern": "\\S",
                         "type": "string"
                     },
                     "origin": {
@@ -88,6 +89,7 @@
                         ],
                         "maxLength": 512,
                         "minLength": 1,
+                        "pattern": "\\S",
                         "type": "string"
                     }
                 },
@@ -124,6 +126,7 @@
                             "Public domain"
                         ],
                         "minLength": 1,
+                        "pattern": "\\S",
                         "type": "string"
                     },
                     "source_url": {
@@ -148,6 +151,7 @@
                     "J.R.R. Tolkien"
                 ],
                 "minLength": 1,
+                "pattern": "\\S",
                 "type": "string"
             },
             "social_links": {
