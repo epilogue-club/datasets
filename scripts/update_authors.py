@@ -35,6 +35,7 @@ DEFAULT_AUTHORS_PATH = REPOSITORY_ROOT / "authors" / "authors.json"
 DEFAULT_SCHEMA_PATH = REPOSITORY_ROOT / "schema" / "author.schema.json"
 DEFAULT_SOURCE = "http://www.suntrap.ca/library/authors.csv"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
 WIKIPEDIA_TEXT_LICENSE = "CC BY-SA 4.0"
 USER_AGENT = (
     "epilogue-datasets author importer/1.0 "
@@ -58,7 +59,7 @@ class WikipediaPage:
     title: str
     canonical_url: str
     extract: str
-    image_title: str
+    wikidata_id: str
 
 
 @dataclass(frozen=True)
@@ -192,10 +193,9 @@ class WikimediaClient:
                     "format": "json",
                     "formatversion": "2",
                     "redirects": "1",
-                    "prop": "extracts|pageimages|info|pageprops",
+                    "prop": "extracts|info|pageprops",
                     "exintro": "1",
                     "explaintext": "1",
-                    "piprop": "name",
                     "inprop": "url",
                     "titles": "|".join(title_batch),
                 },
@@ -213,17 +213,50 @@ class WikimediaClient:
                 ):
                     continue
                 extract = (page.get("extract") or "").strip()
-                image_name = page.get("pageimage")
                 canonical_url = page.get("canonicalurl")
                 page_id = page.get("pageid")
-                if not extract or not image_name or not canonical_url or not page_id:
+                wikidata_id = page.get("pageprops", {}).get("wikibase_item")
+                if not extract or not canonical_url or not page_id or not wikidata_id:
                     continue
                 resolved[requested] = WikipediaPage(
                     title=page["title"],
                     canonical_url=canonical_url,
                     extract=extract,
-                    image_title=f"File:{image_name}",
+                    wikidata_id=wikidata_id,
                 )
+        return resolved
+
+    def wikidata_images(self, entity_ids: list[str]) -> dict[str, str]:
+        """Return representative Commons images explicitly assigned by Wikidata."""
+        resolved: dict[str, str] = {}
+        for entity_batch in batched(list(dict.fromkeys(entity_ids))):
+            payload = self.get_json(
+                WIKIDATA_API,
+                {
+                    "action": "wbgetentities",
+                    "format": "json",
+                    "props": "claims",
+                    "ids": "|".join(entity_batch),
+                },
+            )
+            entities = payload.get("entities", {})
+            for entity_id in entity_batch:
+                claims = entities.get(entity_id, {}).get("claims", {}).get("P18", [])
+                usable_claims = [
+                    claim for claim in claims if claim.get("rank") != "deprecated"
+                ]
+                preferred_claims = [
+                    claim for claim in usable_claims if claim.get("rank") == "preferred"
+                ]
+                for claim in preferred_claims or usable_claims:
+                    value = (
+                        claim.get("mainsnak", {})
+                        .get("datavalue", {})
+                        .get("value")
+                    )
+                    if isinstance(value, str) and value:
+                        resolved[entity_id] = f"File:{value}"
+                        break
         return resolved
 
     def commons_images(self, requested_titles: list[str]) -> dict[str, CommonsImage]:
@@ -338,7 +371,10 @@ def build_records(
         for requested, page in client.wikipedia_pages(host, titles).items():
             wikipedia_pages[(host, requested)] = page
 
-    commons_titles = [page.image_title for page in wikipedia_pages.values()]
+    wikidata_images = client.wikidata_images(
+        [page.wikidata_id for page in wikipedia_pages.values()]
+    )
+    commons_titles = list(wikidata_images.values())
     commons_images = client.commons_images(commons_titles)
 
     records: list[dict[str, Any]] = []
@@ -355,7 +391,8 @@ def build_records(
             continue
         seen_pages.add(page_key)
 
-        image = commons_images.get(page.image_title)
+        image_title = wikidata_images.get(page.wikidata_id)
+        image = commons_images.get(image_title) if image_title else None
         if image is None:
             stats["skipped_image"] += 1
             continue
@@ -455,7 +492,7 @@ def print_summary(stats: Counter[str], dry_run: bool) -> None:
     print(
         f"Source: {stats['source_rows']} rows; {stats['eligible']} eligible; "
         f"{stats['skipped_wikipedia']} without a resolvable Wikipedia page; "
-        f"{stats['skipped_image']} without a Commons image; "
+        f"{stats['skipped_image']} without a representative Commons image; "
         f"{stats['skipped_duplicate']} duplicate page rows."
     )
     rejected = sorted(
