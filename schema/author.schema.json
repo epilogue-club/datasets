@@ -74,6 +74,10 @@
             },
             "id": {
                 "description": "Permanent, globally unique identifier for the author. Construct this by taking the author's name and converting it to lowercase, replacing spaces with hyphens, and ensuring it is unique. Try not to change this unless there is a good reason.",
+                "examples": [
+                    "j-r-r-tolkien",
+                    "ursula-k-le-guin"
+                ],
                 "minLength": 1,
                 "type": "string"
             },
